@@ -1,9 +1,8 @@
 ## Download Firmware
 
 Get the latest release files here:
-```
 https://github.com/sosprz/Meshcore-Wio-Tracker-L1-Pro/releases
-```
+
 
 ## Firmware Update (UF2 / Drag-and-Drop)
 
