@@ -18,7 +18,7 @@ You can also flash using the web flasher. Choose "Custom firmware" at the bottom
 https://flasher.meshcore.co.uk
 
 
-## Tanks 
+## Thanks 
 If you like my work, you can support me here:
 
 [![Buy Me a Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=przemeks&button_colour=ff8800&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00)](https://buymeacoffee.com/przemeks)
