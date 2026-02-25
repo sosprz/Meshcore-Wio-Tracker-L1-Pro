@@ -28,50 +28,146 @@ If you like my work, you can support me here:
 
 # Companion Radio UI (ui-input) Features
 
-**Overview**
-- Home carousel with quick pages for Messages, Contacts, Channels, Adverts, Radio, Bluetooth, Sound, Ping, GPS, Time, Sensors, System, and Tools (availability depends on build flags).
+## Overview
+- Home carousel pages: `Messages`, `Contacts`, `Channels`, `Adverts`, `Radio`, `Bluetooth`, `Sound`, `GPS`, `Time`, `System`, `Tools` (depends on build flags).
+- Shortcut visibility can be configured for `Radio/GPS/Time/Bluetooth/Sound` in `System -> UI`.
 
-**Messaging**
-- Direct messages with per-contact conversation history.
-- Channel messages with joinable public channels and private channels.
-- Message preview screen for recent messages.
-- Message detail view for long messages.
-- T9/joystick text input with caps, symbols, and quick text support.
-- Quick text add/remove screens.
+## Messaging
+- Direct messages (DM) with per-contact threads.
+- Channel messaging for public and private channels.
+- DM and channel compose screens with unified text-input engine.
+- Quick text support:
+  - send quick text
+  - `+Add quick text`
+  - `-Remove quick text`
+- Input modes:
+  - T9 / on-screen keyboard / hardware keyboard (depends on target/build)
+  - shared behavior for submit/back/cursor across text-entry screens.
+- Message preview screen for recent incoming messages.
 
-**Contacts**
-- Contacts list with contact actions (message, delete).
-- Contact list paging with LEFT/RIGHT.
-- Contact list sort option (none/nearest/farthest) using cached distances.
-- Contact settings screen for auto-add filters and cleanup.
-- GPS distance/coordinates shown in contact details when available.
+## History and Limits
+- Persistent history is stored per thread/channel in QSPI.
+- Auto-trim is enabled to prevent unbounded history growth.
+- Active RAM windows:
+  - DM: `20` messages
+  - Channels: `100` messages
+- Unread/total counters are persisted and restored after reboot.
 
-**Channels**
-- Channel list with unread counts (sorted by unread first).
-- Channel history view with paging and line-by-line scroll.
-- Channel compose screen.
-- Channel actions screen.
+## Contacts
+- Tabs: `favs`, `contacts`, `repeaters`, `rooms`, `sensors`.
+- Favorites are grouped in dedicated `favs` tab.
+- Contact actions:
+  - send/open DM
+  - telemetry / repeater login paths
+  - favorite toggle
+  - clear conversation / delete contact
+- Distance-aware sorting in settings (`none / nearest / farthest`) using cached distance.
+- Contacts settings:
+  - auto-add filters (users/repeaters/rooms/sensors)
+  - overwrite oldest toggle
+  - cleanup actions (remove non-users / remove all).
 
-**Radio and Logs**
-- Radio settings screens (frequency, SF, BW, CR, power).
-- RX log screen with per-packet stats.
+## Channels
+- Channel list sorted by unread count.
+- Join/create flows:
+  - `+Join #channel`
+  - `+Join priv channel`
+  - `+Create priv channel`
+- Channel actions:
+  - mute/unmute
+  - show/share private key (for private channels)
+  - clear messages
+  - remove channel
+- Channel history supports paging and line/message navigation.
+- Private key sharing/join flow is integrated from DM.
 
-**Adverts**
-- Adverts menu and recent adverts list.
-- GPS distance/coordinates for adverts when available.
+## Adverts
+- Adverts list with detail view.
+- Manual send:
+  - `Send advert (0-hop)`
+  - `Send advert (flood)`
+- Adverts settings:
+  - `Advert sound` ON/OFF
+  - `Share position` ON/OFF
+  - `Advert rate` presets.
 
-**System and Battery**
-- System menu with device name, battery info, uptime, GPS units, screen lock, max contacts, and reset.
-- Battery submenu with ADC multiplier calibration and status-percent toggle.
-- ADC calibration screen with live voltage/percent display.
+## Radio and Logs
+- Radio menu with:
+  - preset selection
+  - custom radio setup (`freq/SF/BW/CR`)
+  - TX power
+  - repeat toggle
+  - Local Stats
+  - RX Log
+- Custom Radio uses staged edits and saves on `OK` (`save [ok]` hint).
+- Repeat is blocked on blacklist ranges (`433.x`, `869.x`, `918.x`) and auto-disabled when needed.
+- Page up/down (`LEFT/RIGHT`) supported in Local Stats, Repeater Stats, RX Log.
 
-**Tools**
-- Stopwatch.
-- Countdown timer.
-- Discover nodes tool.
-- Signal meter (RSSI/SNR stats with ping sampling).
-- Ping tool and ping status page (toggle + status).
+## System
+- System menu entries:
+  - Change device name
+  - Bluetooth
+  - UI
+  - Display
+  - Radio
+  - GPS
+  - Time
+  - Battery
+  - Sound
+  - Messages
+  - Telemetry
+  - Stats
+  - Reset to default
+- Bluetooth card/menu shows connection state and PIN when relevant.
+- Sound supports level cycling (`OFF/ON/LOW/MEDIUM/HIGH`).
 
-**Status Bar**
-- Battery indicator or percentage (configurable).
-- GPS fix indicator text when fix is valid.
+## UI and Display Settings
+- `System -> UI`:
+  - joystick rotation (where available)
+  - input filter (`OFF`, then `10..500ms` in `10ms` steps)
+  - Home shortcut toggles.
+- `System -> Display`:
+  - screen timeout
+  - brightness (if target supports it)
+  - wake on message
+  - screen lock.
+- Screen lock flow:
+  - unlock via `HOLD PREV 3s` + `ENTER x2`
+  - guided unlock popup with progress.
+
+## Battery
+- Battery settings:
+  - ADC multiplier calibration
+  - top-bar display mode (`Icon/%/Volt`)
+  - battery display refresh and rounding
+  - shutdown threshold (`OFF/3300/3400/3500/3600 mV`).
+
+## Telemetry and Repeater Operations
+- Telemetry policy settings:
+  - allow request
+  - location access
+  - env access.
+- Repeater support:
+  - admin/guest login flows
+  - stats screen
+  - remote request orchestration with retry/timeout handling.
+
+## Tools
+- Tools menu order:
+  1. `Discover Repeaters`
+  2. `Ping bot`
+  3. `Stopwatch`
+  4. `Countdown Timer`
+  5. `Sensors`
+  6. `Snake`
+- `Discover Repeaters`:
+  - auto-start scan on enter
+  - zero-hop discovery retries in scan window
+  - scrollable live results
+  - `ENTER` on selected repeater opens `Repeater Stats`
+  - `ENTER` with empty list starts a new scan.
+
+## Status Bar
+- Battery shown as icon/percent/voltage (configurable).
+- GPS indicator when fix is valid.
+- Bluetooth/connected state shown in relevant screens/cards.
