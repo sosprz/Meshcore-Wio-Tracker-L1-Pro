@@ -1,3 +1,5 @@
+![alt text](<img/1.jpg>)
+
 ## Download Firmware
 
 Get the latest release files here:
