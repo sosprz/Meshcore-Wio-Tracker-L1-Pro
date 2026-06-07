@@ -17,7 +17,7 @@ https://github.com/sosprz/Meshcore-Wio-Tracker-L1-Pro/releases
 
 You can also flash using the web flasher. Choose "Custom firmware" at the bottom:
 
-https://flasher.meshcore.co.uk
+https://meshcore.io/flasher
 
 
 ## Thanks 
