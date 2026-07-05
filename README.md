@@ -139,9 +139,10 @@ If you like my work, you can support me here:
   - brightness (if target supports it)
   - wake on message
   - screen lock.
-- Screen lock flow:
+- Screen lock flow (when `ON`):
+  - lock via `HOLD PREV 3s`
   - unlock via `HOLD PREV 3s` + `ENTER x2`
-  - guided unlock popup with progress.
+  - guided lock/unlock popup with progress.
 
 ## Battery
 - Battery settings:
@@ -174,6 +175,8 @@ If you like my work, you can support me here:
   - scrollable live results
   - `ENTER` on selected repeater opens `Repeater Stats`
   - `ENTER` with empty list starts a new scan.
+- `Ping Bot`
+  - when `ON`, tracker will reply 'pong' to any incoming 'ping' direct message.
 
 ## Status Bar
 - Battery shown as icon/percent/voltage (configurable).
